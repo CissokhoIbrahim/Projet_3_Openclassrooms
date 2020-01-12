@@ -4,9 +4,10 @@ class labyrinthe:
 
 	def __init__(self):
 		self.nom = "Le coeur du labyrinthe"
-		 
 
-		def parse_filetxt_into_dic(self):
+
+
+		def parse_file(self):
 			content = {}
 
 			x,y = (), ()
@@ -19,7 +20,7 @@ class labyrinthe:
 					if(y == 15):
 						y = 0
 						x+1
-			print(content)
+						print(content)
 
 
 		""" def get_to_file(self):
@@ -27,8 +28,9 @@ class labyrinthe:
 				my_depickler = pickle.Unpickler(file)
 				get_to_file = my_depickler.load()
 				"""
-			
+
 
 if __name__== "__main__":
 	p = labyrinthe()
-	print(content)
+	print( p.parse_file() ) 
+
