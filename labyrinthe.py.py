@@ -34,26 +34,6 @@ class Gestion_labyrinthe:
 				get_to_file = my_depickler.load()
 			
 
-
-
-	def chemins(self):
-		if self.droite == self.argent:
-			self.argent += 1
-		elif self.droite == self.bijoux:
-			self.bijoux += 1
-		if self.bas == self.argent:
-			self.argent -= 1
-		elif self.bas == self.bijoux:
-			self.bijoux -= 1
-		if self.gauche == self.argent:
-			self.argent -= 1
-		elif self.gauche == self.bijoux:
-			self.bijoux -= 1
-		if self.haut == self.argent:
-			self.argent += 1
-		elif self.haut == self.bijoux:
-			self.bijoux += 1
-
 if __name__== "__main__":
 	p = Gestion_labyrinthe()
 	print(p.parse_filetxt_into_dic())
