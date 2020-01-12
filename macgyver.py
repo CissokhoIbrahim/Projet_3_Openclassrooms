@@ -1,6 +1,10 @@
-class MacGyver(Gestion_labyrinthe):
+class MacGyver(labyrinthe):
 
 	def __init__(self):
+		self.droite = "r"
+		self.gauche = "l"
+		self.bas = "b"
+		self.haut = "t"
 		self.nom_Mac = "MacGyver"
 		self.destination = {(x, y): "chemin"}
 		self.mur = {(x, y): "mur"}

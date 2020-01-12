@@ -1,4 +1,4 @@
-class Objets(Gardien, MacGyver, Gestion_labyrinthe):
+class Objets(Gardien, MacGyver, labyrinthe):
 
 	def __init__(self):
 		self.nom = "Objets"
