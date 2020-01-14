@@ -8,31 +8,31 @@ class maze:
 		self.labyrinthe = self.parse_file()
 
 # Méthode qui gère la parsing du fichier .txt représentant le labyrinthe
-		def parse_file(self):
+	def parse_file(self):
 
 # On crée les variables / tableaux nécessaire à la méthode
-			content = {}
-			x, y = 0, 0
+		content = {}
+		x, y = 0, 0
 
 # On ouvre le fichier en lecture et on affecte son contenu à "f"
-			f = open("labyrinthe.txt", "r")
+		f = open("labyrinthe.txt", "r")
 
 # On parcours les lignes de "f"
-			for line in f:
+		for line in f:
 # On parcours les caractères de "line"
 			for caracter in line:
 # Si le caractère est un 'retour a la ligne"
-			if caracter == "\n":
+				if caracter == "\n":
 # on repasse y à 0, et x à x+1
-				y = 0
-				x = x+1
+					y = 0
+					x = x+1
 # Si le caractère n'est pas un 'retour a la ligne'
-			else:
+				else:
 # On créer la paire "clé : valeur" dans le dictionnaire "content"
-				content[(x, y)] = caracter
+					content[(x, y)] = caracter
 # On ajoute 1 à y
-				y = y+1
-				return content
+					y = y+1
+		return content
 
 # Créer une méthode qui récupère toutes les "clés" de l'attribut "self.labyrinthe"
 # dont la valeur est "c" (pour chemin !)
