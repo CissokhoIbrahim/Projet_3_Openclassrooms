@@ -1,6 +1,6 @@
-class Gardien(MacGyver, labyrinthe):
+class Gard(MacGyver, maze):
 	
 	def __init__(self):
-		self.nom_Gard = "Gardien"		
+		self.name_Gard = "Gard"		
 
 

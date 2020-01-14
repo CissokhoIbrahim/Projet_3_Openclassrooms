@@ -1,45 +1,45 @@
-class MacGyver(labyrinthe):
+class MacGyver(maze):
 
 	def __init__(self):
-		self.droite = "r"
-		self.gauche = "l"
-		self.bas = "b"
-		self.haut = "t"
-		self.nom_Mac = "MacGyver"
-		self.destination = {(x, y): "chemin"}
-		self.mur = {(x, y): "mur"}
-		self.grille_labyrinthe = {(x, y): "grille du labyrinthe"}
-		self.ramasser = {(x, y): "ramasser"}
+		self.right = "r"
+		self.left = "l"
+		self.bottom = "b"
+		self.top = "t"
+		self.name_Mac = "MacGyver"
+		self.destination = {(x, y): "way"}
+		self.wall = {(x, y): "wall"}
+		self.grid_way = {(x, y): "grid of the way"}
+		self.Pick up = {(x, y): "Pick up"}
 
-	def droite(self):
-		self.droite = input("Taper la touche 'r' pour aller à doite : ")
-		if self.droite == "r":
-			self.droite += 1
+	def right(self):
+		self.right = input("Tap the 'r' button to go to right : ")
+		if self.right == "r":
+			self.right += 1
 
-	def bas(self):
-		self.bas = input("Taper la touche 'b' pour aller en bas : ")
-		if self.bas == "b":
-			self.bas -= 1
-
-
-	def gauche(self):
-		self.gauche = input("Taper la touche 'l' pour aller à gauche : ")
-		if self.gauche == "l":
-			self.gauche -= 1			
+	def bottom(self):
+		self.bottom = input("Tap the 'b' button to go to bottom : ")
+		if self.bottom == "b":
+			self.bottom -= 1
 
 
-	def haut(self):
-		self.haut = input("Taper la touche 't' pour aller en haut : ")
-		if self.haut == "t":
-			self.haut += 1
+	def left(self):
+		self.left = input("Tap the 'l' button to go to left : ")
+		if self.left == "l":
+			self.left -= 1			
+
+
+	def top(self):
+		self.top = input("Tap the 'r' button to go to top : ")
+		if self.top == "t":
+			self.top += 1
 
 
 	def destination(self):
-		if self.destination is not self.mur:
+		if self.destination is not self.grid_way:
 			self.destination += 1
-		elif self.destination  is not self.grille_labyrinthe:
+		elif self.destination  is not self.grid_way:
 			self.destination += 1
-		elif self.argent or self.bijoux:
-			self.ramasser = self.nom_Mac
-		elif self.nom_Gard == self.nom_Gard:
+		elif self.money or self.jewelry:
+			self.Pick up = self.name_Mac
+		elif self.name_Gard == self.name_Gard:
 			self.destination -= 1

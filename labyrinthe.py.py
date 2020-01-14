@@ -1,14 +1,14 @@
 # Gestionnaire du labyrinthe
 
-class labyrinthe:
+class maze:
 
 	def __init__(self):
-		self.nom = "Le coeur du labyrinthe"
-
-
+		self.name = "labyrinthe"
+		self.parse_file = self.parse_file()
+		
 
 		def parse_file(self):
-			content = {}
+			content = {}, {}, {}, {}
 
 			x,y = (), ()
 
@@ -23,14 +23,8 @@ class labyrinthe:
 						print(content)
 
 
-		""" def get_to_file(self):
-			with open("labyrinthe.txt", "rb") as file:
-				my_depickler = pickle.Unpickler(file)
-				get_to_file = my_depickler.load()
-				"""
-
-
 if __name__== "__main__":
-	p = labyrinthe()
-	print( p.parse_file() ) 
+	first_object = maze()
+	print(first_object.parse_file())
+
 

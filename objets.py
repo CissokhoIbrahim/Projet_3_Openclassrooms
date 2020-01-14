@@ -1,25 +1,25 @@
-class Objets(Gardien, MacGyver, labyrinthe):
+class Objects(Gard, MacGyver, maze):
 
 	def __init__(self):
-		self.nom = "Objets"
-		self.argent = "Argent"
-		self.bijoux = "Or"
+		self.name = "Objects"
+		self.money = "Money"
+		self.jewelry = "gold"
 
 
-	def chemins(self):
-		if self.droite == self.argent:
-			self.argent += 1
-		elif self.droite == self.bijoux:
-			self.bijoux += 1
-		if self.bas == self.argent:
-			self.argent -= 1
-		elif self.bas == self.bijoux:
-			self.bijoux -= 1
-		if self.gauche == self.argent:
-			self.argent -= 1
-		elif self.gauche == self.bijoux:
-			self.bijoux -= 1
-		if self.haut == self.argent:
-			self.argent += 1
-		elif self.haut == self.bijoux:
-			self.bijoux += 1
+	def paths(self):
+		if self.right == self.money:
+			self.money += 1
+		elif self.right == self.jewelry:
+			self.jewelry += 1
+		if self.bottom == self.money:
+			self.money -= 1
+		elif self.bottom == self.jewelry:
+			self.jewelry -= 1
+		if self.left == self.money:
+			self.money -= 1
+		elif self.left == self.jewelry:
+			self.jewelry -= 1
+		if self.top == self.money:
+			self.money += 1
+		elif self.top == self.jewelry:
+			self.jewelry += 1
