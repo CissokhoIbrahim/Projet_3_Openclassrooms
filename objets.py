@@ -1,10 +1,7 @@
-class Objects(Gard, MacGyver, maze):
+class Objects():
 
 	def __init__(self):
-		self.name = "Objects"
-		self.money = "Money"
-		self.jewelry = "gold"
-
+		
 
 	def paths(self):
 		if self.right == self.money:
@@ -23,3 +20,14 @@ class Objects(Gard, MacGyver, maze):
 			self.money += 1
 		elif self.top == self.jewelry:
 			self.jewelry += 1
+
+	
+
+if __name__== "__main__":
+# On instancie un objet "maze"
+	j = Objects()
+
+# On affiche l'attribut "labyrinthe" de l'objet "maze", qui s'est automatiquement
+# créé grâce au constructeur
+
+	print()

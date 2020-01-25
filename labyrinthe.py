@@ -1,11 +1,13 @@
 # Gestionnaire du labyrinthe
 class maze:
 
+
 # Constructeur : se déclenche automatiquement lors de la création d'un objet "maze"
 	def __init__(self):
 # Lors de l'instanciation de l'objet, la méthode "parse_file" est automatiquement
 # déclenchée, et son contenu est inséré dans un attribut "self.labyrinthe"
 		self.labyrinthe = self.parse_file()
+		self.keys = self.get_keys()
 
 # Méthode qui gère la parsing du fichier .txt représentant le labyrinthe
 	def parse_file(self):
@@ -34,18 +36,30 @@ class maze:
 					y = y+1
 		return content
 
-# Créer une méthode qui récupère toutes les "clés" de l'attribut "self.labyrinthe"
+
+	# Créer une méthode qui récupère toutes les "clés" de l'attribut "self.labyrinthe"
 # dont la valeur est "c" (pour chemin !)
+
+
+	def get_keys(self):
+		for k in self.labyrinthe.values():
+			if k == 'c':
+				self.labyrinthe['c'] = "t", "e", "s"
+				return self.labyrinthe
 
 
 # Ensuite, se servir de cette méthode pour récupérer 3 coordonnées,
 # aléatoirement, afin d'y placer nos 3 objets (tube, ether, seringue)
 
 
+
+
 if __name__== "__main__":
 # On instancie un objet "maze"
 	m = maze()
+	j = maze()
 
 # On affiche l'attribut "labyrinthe" de l'objet "maze", qui s'est automatiquement
 # créé grâce au constructeur
 	print(m.labyrinthe)
+	print(j.keys)
