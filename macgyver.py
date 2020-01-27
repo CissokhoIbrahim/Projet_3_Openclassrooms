@@ -5,12 +5,8 @@ class MacGyver(maze):
 		self.left = "l"
 		self.bottom = "b"
 		self.top = "t"
-		self.name_Mac = "MacGyver"
-		self.destination = {(x, y): "way"}
-		self.wall = {(x, y): "wall"}
-		self.grid_way = {(x, y): "grid of the way"}
-		self.Pick up = {(x, y): "Pick up"}
-
+		self.Mac = "Mac"
+		
 	def right(self):
 		self.right = input("Tap the 'r' button to go to right : ")
 		if self.right == "r":
@@ -34,12 +30,11 @@ class MacGyver(maze):
 			self.top += 1
 
 
-	def destination(self):
-		if self.destination is not self.grid_way:
-			self.destination += 1
-		elif self.destination  is not self.grid_way:
-			self.destination += 1
-		elif self.money or self.jewelry:
-			self.Pick up = self.name_Mac
-		elif self.name_Gard == self.name_Gard:
-			self.destination -= 1
+if __name__== "__main__":
+# On instancie un objet "maze"
+	m = maze()
+	j = maze()
+
+# On affiche l'attribut "labyrinthe" de l'objet "maze", qui s'est automatiquement
+# créé grâce au constructeur
+	
