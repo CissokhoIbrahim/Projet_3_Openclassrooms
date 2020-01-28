@@ -7,7 +7,7 @@ class maze:
 # Lors de l'instanciation de l'objet, la méthode "parse_file" est automatiquement
 # déclenchée, et son contenu est inséré dans un attribut "self.labyrinthe"
 		self.labyrinthe = self.parse_file()
-		self.keys = self.get_keys()
+		self.keys = self.random_coordinates()
 
 # Méthode qui gère la parsing du fichier .txt représentant le labyrinthe
 	def parse_file(self):
@@ -40,12 +40,22 @@ class maze:
 	# Créer une méthode qui récupère toutes les "clés" de l'attribut "self.labyrinthe"
 # dont la valeur est "c" (pour chemin !)
 
-
 	def get_keys(self):
-		for k in self.labyrinthe.values():
-			if k == 'c':
-				self.labyrinthe['c'] = "t", "e", "s"
-				return self.labyrinthe
+		liste = []
+		for key, value in self.labyrinthe.items():
+			if value == 'c':
+				liste.append(key)
+		return liste
+
+	def random_coordinates(self):
+		liste = self.get_keys()
+		liste_coordinates = []
+# je parcours 3 fois
+		for i in range(0,3):
+			random.shuffle(liste)
+			liste_coordinates.append(liste[0])
+			liste.pop(0)
+		return liste_coordinates
 
 
 # Ensuite, se servir de cette méthode pour récupérer 3 coordonnées,
