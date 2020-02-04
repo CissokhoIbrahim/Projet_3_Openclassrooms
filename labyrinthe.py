@@ -7,7 +7,7 @@ class maze:
 # Lors de l'instanciation de l'objet, la méthode "parse_file" est automatiquement
 # déclenchée, et son contenu est inséré dans un attribut "self.labyrinthe"
 		self.labyrinthe = self.parse_file()
-		self.keys = self.random_coordinates()
+		self.keys = self.append_objects()
 
 # Méthode qui gère la parsing du fichier .txt représentant le labyrinthe
 	def parse_file(self):
@@ -48,6 +48,7 @@ class maze:
 		return liste
 
 	def random_coordinates(self):
+		import random
 		liste = self.get_keys()
 		liste_coordinates = []
 # je parcours 3 fois
@@ -61,14 +62,22 @@ class maze:
 # Ensuite, se servir de cette méthode pour récupérer 3 coordonnées,
 # aléatoirement, afin d'y placer nos 3 objets (tube, ether, seringue)
 
+	def append_objects(self):
+		liste = self.random_coordinates()
+		liste_append_objects = liste
+		liste_append_objects[0] = "t"
+		liste_append_objects[1] = "e"
+		liste_append_objects[2] = "s"
+		return liste_append_objects
 
 
 
 if __name__== "__main__":
+
 # On instancie un objet "maze"
+
 	m = maze()
 	j = maze()
-
 # On affiche l'attribut "labyrinthe" de l'objet "maze", qui s'est automatiquement
 # créé grâce au constructeur
 	print(m.labyrinthe)
