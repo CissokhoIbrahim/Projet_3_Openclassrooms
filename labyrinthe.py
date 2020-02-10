@@ -8,6 +8,7 @@ class maze:
 # déclenchée, et son contenu est inséré dans un attribut "self.labyrinthe"
 		self.labyrinthe = self.parse_file()
 		self.keys = self.append_objects()
+		self.coordinates = self.right()
 
 # Méthode qui gère la parsing du fichier .txt représentant le labyrinthe
 	def parse_file(self):
@@ -70,6 +71,39 @@ class maze:
 		liste_append_objects[2] = "s"
 		return liste_append_objects
 
+	def bottom(self):
+		x, y = 5, 1
+		M = 0
+
+		for key in self.random_coordinates():
+			if M == (x, y):
+				 x, y+8
+		return key
+
+	def top(self):
+		x, y = 5, 9
+		M = 0
+
+		for key in self.random_coordinates():
+			if M == (x, y):
+				x, y-1
+		return key
+
+	def left(self):
+		x, y = 5, 8
+		M = 0
+		for key in self.random_coordinates():
+			if M == (x, y):
+				x-1, y
+		return key
+
+	def right(self):
+		x, y = 5, 7
+		M = 0
+		for key in self.random_coordinates():
+			if M == (x, y):
+				x+1, y 
+		return key
 
 
 if __name__== "__main__":
@@ -78,7 +112,9 @@ if __name__== "__main__":
 
 	m = maze()
 	j = maze()
+	d = maze()
 # On affiche l'attribut "labyrinthe" de l'objet "maze", qui s'est automatiquement
 # créé grâce au constructeur
 	print(m.labyrinthe)
 	print(j.keys)
+	print(d.coordinates)
