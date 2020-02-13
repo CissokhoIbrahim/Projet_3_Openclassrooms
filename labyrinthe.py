@@ -1,44 +1,49 @@
+from macgyver import MacGyver
+
 # Gestionnaire du labyrinthe
 class maze:
 
 
-# Constructeur : se déclenche automatiquement lors de la création d'un objet "maze"
+	# Constructeur : se déclenche automatiquement lors de la création d'un objet "maze"
 	def __init__(self):
-# Lors de l'instanciation de l'objet, la méthode "parse_file" est automatiquement
-# déclenchée, et son contenu est inséré dans un attribut "self.labyrinthe"
-		self.labyrinthe = self.parse_file()
-		self.keys = self.append_objects()
-		self.coordinates = self.right()
 
-# Méthode qui gère la parsing du fichier .txt représentant le labyrinthe
+		# Lors de l'instanciation de l'objet, la méthode "parse_file" est automatiquement
+		# déclenchée, et son contenu est inséré dans un attribut "self.labyrinthe"
+		self.mac_gyver = None
+		self.labyrinthe = self.parse_file()
+		# self.keys = self.append_objects()
+
+	# Méthode qui gère la parsing du fichier .txt représentant le labyrinthe
 	def parse_file(self):
 
-# On crée les variables / tableaux nécessaire à la méthode
+		# On crée les variables / tableaux nécessaire à la méthode
 		content = {}
 		x, y = 0, 0
 
-# On ouvre le fichier en lecture et on affecte son contenu à "f"
+		# On ouvre le fichier en lecture et on affecte son contenu à "f"
 		f = open("labyrinthe.txt", "r")
 
-# On parcours les lignes de "f"
+		# On parcours les lignes de "f"
 		for line in f:
-# On parcours les caractères de "line"
+		# On parcours les caractères de "line"
 			for caracter in line:
-# Si le caractère est un 'retour a la ligne"
+			# Si le caractère est un 'retour a la ligne"
 				if caracter == "\n":
-# on repasse y à 0, et x à x+1
+					# on repasse y à 0, et x à x+1
 					y = 0
 					x = x+1
-# Si le caractère n'est pas un 'retour a la ligne'
+				# Si le caractère n'est pas un 'retour a la ligne'
 				else:
-# On créer la paire "clé : valeur" dans le dictionnaire "content"
+					# On créer la paire "clé : valeur" dans le dictionnaire "content"
 					content[(x, y)] = caracter
-# On ajoute 1 à y
-					y = y+1
+					if caracter == 'd':
+						self.mac_gyver = MacGyver([x,y])
+						# On ajoute 1 à y
+						y = y+1
 		return content
 
 
-	# Créer une méthode qui récupère toutes les "clés" de l'attribut "self.labyrinthe"
+# Créer une méthode qui récupère toutes les "clés" de l'attribut "self.labyrinthe"
 # dont la valeur est "c" (pour chemin !)
 
 	def get_keys(self):
@@ -52,7 +57,7 @@ class maze:
 		import random
 		liste = self.get_keys()
 		liste_coordinates = []
-# je parcours 3 fois
+		# je parcours 3 fois
 		for i in range(0,3):
 			random.shuffle(liste)
 			liste_coordinates.append(liste[0])
@@ -60,8 +65,8 @@ class maze:
 		return liste_coordinates
 
 
-# Ensuite, se servir de cette méthode pour récupérer 3 coordonnées,
-# aléatoirement, afin d'y placer nos 3 objets (tube, ether, seringue)
+	# Ensuite, se servir de cette méthode pour récupérer 3 coordonnées,
+	# aléatoirement, afin d'y placer nos 3 objets (tube, ether, seringue)
 
 	def append_objects(self):
 		liste = self.random_coordinates()
@@ -72,49 +77,25 @@ class maze:
 		return liste_append_objects
 
 	def bottom(self):
-		x, y = 5, 1
-		M = 0
-
-		for key in self.random_coordinates():
-			if M == (x, y):
-				 x, y+8
-		return key
+		self.mac_gyver.coordinates[0] += 1
 
 	def top(self):
-		x, y = 5, 9
-		M = 0
-
-		for key in self.random_coordinates():
-			if M == (x, y):
-				x, y-1
-		return key
+		self.mac_gyver.coordinates[0] -= 1
 
 	def left(self):
-		x, y = 5, 8
-		M = 0
-		for key in self.random_coordinates():
-			if M == (x, y):
-				x-1, y
-		return key
+		self.mac_gyver.coordinates[1] -= 1
 
 	def right(self):
-		x, y = 5, 7
-		M = 0
-		for key in self.random_coordinates():
-			if M == (x, y):
-				x+1, y 
-		return key
+		self.mac_gyver.coordinates[1] += 1
 
 
 if __name__== "__main__":
 
-# On instancie un objet "maze"
+	# On instancie un objet "maze"
 
 	m = maze()
-	j = maze()
-	d = maze()
-# On affiche l'attribut "labyrinthe" de l'objet "maze", qui s'est automatiquement
-# créé grâce au constructeur
-	print(m.labyrinthe)
-	print(j.keys)
-	print(d.coordinates)
+
+
+	# je veux aller en bas :
+	m.right()
+	print(m.mac_gyver.coordinates)
