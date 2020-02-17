@@ -11,6 +11,9 @@ class maze:
 		# déclenchée, et son contenu est inséré dans un attribut "self.labyrinthe"
 		self.mac_gyver = None
 		self.labyrinthe = self.parse_file()
+		self.verif = self.verification()
+		self.Pickup = self.mac_gyver
+		self.Guard = None
 		# self.keys = self.append_objects()
 
 	# Méthode qui gère la parsing du fichier .txt représentant le labyrinthe
@@ -38,6 +41,10 @@ class maze:
 					content[(x, y)] = caracter
 					if caracter == 'd':
 						self.mac_gyver = MacGyver([x,y])
+						if caracter == 'c':
+							caracter['c'] = self.Pickup
+							if carcater == 'g':
+								self.Guard = Guard([x, y])
 						# On ajoute 1 à y
 						y = y+1
 		return content
@@ -68,6 +75,7 @@ class maze:
 	# Ensuite, se servir de cette méthode pour récupérer 3 coordonnées,
 	# aléatoirement, afin d'y placer nos 3 objets (tube, ether, seringue)
 
+
 	def append_objects(self):
 		liste = self.random_coordinates()
 		liste_append_objects = liste
@@ -75,6 +83,7 @@ class maze:
 		liste_append_objects[1] = "e"
 		liste_append_objects[2] = "s"
 		return liste_append_objects
+
 
 	def bottom(self):
 		self.mac_gyver.coordinates[0] += 1
@@ -88,14 +97,38 @@ class maze:
 	def right(self):
 		self.mac_gyver.coordinates[1] += 1
 
+	def verification(self):
+		for carcater in self.labyrinthe:
+			if 'd' == 'c':
+				pass
+			elif 'd' == 'm' or not self.labyrinthe:
+				break
+			elif 'c' == 't' 's' 'e':
+				pass
+			elif 'c' != 't' 's' 'e':
+				return self.labyrinthe
+
+	def guard(self):
+		for carcater in self.labyrinthe:
+			if 'g' == 'a':
+				return self.labyrinthe
 
 if __name__== "__main__":
 
 	# On instancie un objet "maze"
 
 	m = maze()
+	j = maze()
 
+	print(m.mac_gyver.coordinates)
 
-	# je veux aller en bas :
+	m.bottom()
+	print(m.mac_gyver.coordinates)
+
 	m.right()
 	print(m.mac_gyver.coordinates)
+
+	m.bottom()
+	print(m.mac_gyver.coordinates)
+
+	print(j.verification())
