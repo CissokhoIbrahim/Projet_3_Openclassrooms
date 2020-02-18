@@ -41,10 +41,6 @@ class maze:
 					content[(x, y)] = caracter
 					if caracter == 'd':
 						self.mac_gyver = MacGyver([x,y])
-						if caracter == 'c':
-							caracter['c'] = self.Pickup
-							if carcater == 'g':
-								self.Guard = Guard([x, y])
 						# On ajoute 1 à y
 						y = y+1
 		return content
@@ -98,19 +94,9 @@ class maze:
 		self.mac_gyver.coordinates[1] += 1
 
 	def verification(self):
-		for carcater in self.labyrinthe:
-			if 'd' == 'c':
+			if 'd' == 'm' or not self.labyrinthe:
 				pass
-			elif 'd' == 'm' or not self.labyrinthe:
-				break
-			elif 'c' == 't' 's' 'e':
-				pass
-			elif 'c' != 't' 's' 'e':
-				return self.labyrinthe
-
-	def guard(self):
-		for carcater in self.labyrinthe:
-			if 'g' == 'a':
+			elif 'd' == 't' 's' 'e':
 				return self.labyrinthe
 
 if __name__== "__main__":
