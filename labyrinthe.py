@@ -11,10 +11,8 @@ class maze:
 		# déclenchée, et son contenu est inséré dans un attribut "self.labyrinthe"
 		self.mac_gyver = None
 		self.labyrinthe = self.parse_file()
-		self.verif = self.verification()
-		self.Pickup = self.mac_gyver
-		self.Guard = None
-		# self.keys = self.append_objects()
+		self.verif = self.find_new_coo()
+		self.moven = self.check_move()
 
 	# Méthode qui gère la parsing du fichier .txt représentant le labyrinthe
 	def parse_file(self):
@@ -50,36 +48,38 @@ class maze:
 # dont la valeur est "c" (pour chemin !)
 
 	def get_keys(self):
-		liste = []
+		liste_1 = []
 		for key, value in self.labyrinthe.items():
 			if value == 'c':
 				liste.append(key)
 		return liste
 
+# Cette fonction chosir aléatoirement 3 coordonées
+
 	def random_coordinates(self):
 		import random
-		liste = self.get_keys()
+		liste_2 = self.get_keys()
 		liste_coordinates = []
 		# je parcours 3 fois
 		for i in range(0,3):
-			random.shuffle(liste)
-			liste_coordinates.append(liste[0])
-			liste.pop(0)
+			random.shuffle(liste_2)
+			liste_coordinates.append(liste_2[0])
+			liste_2.pop(0)
 		return liste_coordinates
 
 
 	# Ensuite, se servir de cette méthode pour récupérer 3 coordonnées,
 	# aléatoirement, afin d'y placer nos 3 objets (tube, ether, seringue)
 
-
 	def append_objects(self):
-		liste = self.random_coordinates()
+		liste_3 = self.labyrinthe()
 		liste_append_objects = liste
 		liste_append_objects[0] = "t"
 		liste_append_objects[1] = "e"
 		liste_append_objects[2] = "s"
 		return liste_append_objects
 
+	# Les différentes fonctions que Mac_gyver emprunte
 
 	def bottom(self):
 		self.mac_gyver.coordinates[0] += 1
@@ -93,28 +93,46 @@ class maze:
 	def right(self):
 		self.mac_gyver.coordinates[1] += 1
 
-	def verification(self):
-			if 'd' == 'm' or not self.labyrinthe:
-				pass
-			elif 'd' == 't' 's' 'e':
-				return self.labyrinthe
+	# Une fonction qui récupère, trouve et renvoie trouve les coordonnées de Mac_gyver
+	def find_new_coo(self):
+		return self.mac_gyver.coordinates
+
+	def check_move(self):
+		destination = None
+		macgyver = self.mac_gyver.coordinates
+		for (x, y) in self.labyrinthe:
+			if macgyver == 'c':
+				return True
+			elif macgyver == 'm' or not self.labyrinthe:
+				return False
+			elif destination == 'm':
+				return True
+			else:
+				return False
+
 
 if __name__== "__main__":
 
-	# On instancie un objet "maze"
+	# On instancie les différents objets "maze", juste en bas :
 
 	m = maze()
-	j = maze()
-
-	print(m.mac_gyver.coordinates)
 
 	m.bottom()
-	print(m.mac_gyver.coordinates)
+	m.bottom()
+	m.bottom()
+	print(m.find_new_coo())
 
 	m.right()
-	print(m.mac_gyver.coordinates)
+	m.right()
+	m.right()
+	m.right()
+	print(m.find_new_coo())
 
-	m.bottom()
-	print(m.mac_gyver.coordinates)
+	m.left()
+	m.left()
+	m.left()
+	print(m.find_new_coo())
 
-	print(j.verification())
+	print(m.find_new_coo())
+
+	print(m.check_move())
