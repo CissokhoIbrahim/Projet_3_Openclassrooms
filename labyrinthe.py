@@ -113,15 +113,14 @@ class maze:
 
 	def check_move(self):
 		destination = self.find_new_coo()
-		for (x, y) in self.labyrinthe:
-			if destination == 'c':
-				return True
+		if destination == 'c':
+			return True
 
-			elif destination == self.labyrinthe:
-				return True
+		elif destination == self.labyrinthe:
+			return True
 
-			elif destination == 'm' or not self.labyrinthe:
-				return False
+		elif destination == 'm' or not self.labyrinthe:
+			return False
 
 	def move(self):
 		r = self.right()
