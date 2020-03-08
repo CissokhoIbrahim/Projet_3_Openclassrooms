@@ -12,7 +12,7 @@ class maze:
 		self.mac_gyver = None
 		self.labyrinthe = self.parse_file()
 		self.verif = self.check_move()
-		self.objects = self.liste_append_objects()
+		# self.objects = self.liste_append_objects()
 
 	# Méthode qui gère la parsing du fichier .txt représentant le labyrinthe
 	def parse_file(self):
@@ -93,63 +93,33 @@ class maze:
 	def right(self):
 		self.mac_gyver.coordinates[1] += 1
 
-	# Une fonction qui récupère, trouve et renvoie trouve les coordonnées de Mac_gyver
-	def find_new_coo(self):
+	# Une fonction qui récupère, trouve les nouvelles coordonées de macgyver et de sa position initiale et de sa direction et renvoie ses nouvelles coordonnées
+	def find_new_coo(self, direction=False):
 		m_c = self.mac_gyver.coordinates
 
-		if m_c == "bottom":
+		if direction == "bottom":
 			m_c[0] += 1
 
-		if m_c == "top":
+		if direction == "top":
 			m_c[0] -= 1
 
-		if m_c == "left" :
+		if direction == "left" :
 			m_c[1] -= 1
 
-		if m_c == "right":
+		if direction == "right":
 			m_c[1] += 1
 
 		return m_c
 
-	def check_move(self):
-		destination = self.find_new_coo()
-		if destination == 'c':
+	def check_move(self, direction=None):
+		case = self.find_new_coo()
+		if direction == case:
 			return True
-
-		elif destination == self.labyrinthe:
-			return True
-
-		elif destination == 'm' or not self.labyrinthe:
+		else:
 			return False
 
-	def move(self):
-		r = self.right()
-		l = self.left()
-		b = self.bottom()
-		t = self.top()
-		destination = self.find_new_coo()
-		ch_mv = self.check_move()
-		objects_three = liste_append_objects()
-
-		if destination == ch_mv:
-			if destination == 'c':
-				destination[0] += 1
-				destination[0] -= 1
-				destination[1] -= 1
-				destination[1] += 1
-				ch_mv = 'c'
-			if ch_mv == objects_three:
-				ch_mv = destination
-				destination.append(objects_three)
-				ch_mv = 'c'
-			if destination == 'g':
-				destination(len(objects_three))
-			if destination == objects_three:
-				print("Gagné")
-			else:
-				print("Perdu")
-
-
+	def move(self, direction=None):
+		return True
 
 
 if __name__== "__main__":
@@ -157,4 +127,11 @@ if __name__== "__main__":
 	# On instancie les différents objets "maze", juste en bas :
 	m = maze()
 
-	print(m.move())
+	m.bottom()
+	m.bottom()
+	m.bottom()
+	m.right()
+	m.right()
+	m.right()
+	print(m.find_new_coo())
+	print(m.check_move())
