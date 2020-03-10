@@ -11,8 +11,8 @@ class maze:
 		# déclenchée, et son contenu est inséré dans un attribut "self.labyrinthe"
 		self.mac_gyver = None
 		self.labyrinthe = self.parse_file()
-		self.verif = self.check_move()
-		# self.objects = self.liste_append_objects()
+		self.objects = self.append_objects()
+		#self.verif = self.check_move()
 
 	# Méthode qui gère la parsing du fichier .txt représentant le labyrinthe
 	def parse_file(self):
@@ -72,7 +72,7 @@ class maze:
 	# aléatoirement, afin d'y placer nos 3 objets (tube, ether, seringue)
 
 	def append_objects(self):
-		liste_3 = self.labyrinthe()
+		liste_3 = self.labyrinthe
 		liste_append_objects = liste_3
 		liste_append_objects[0] = "t"
 		liste_append_objects[1] = "e"
@@ -111,15 +111,18 @@ class maze:
 
 		return m_c
 
-	def check_move(self, direction=None):
-		case = self.find_new_coo()
-		if direction == case:
+	def check_move(self, direction=False):
+		mac = self.mac_gyver.coordinates
+		case = self.find_new_coo([direction])
+		if mac == case:
 			return True
 		else:
 			return False
 
-	def move(self, direction=None):
+	def move(self, direction=False):
 		return True
+
+
 
 
 if __name__== "__main__":
@@ -127,11 +130,4 @@ if __name__== "__main__":
 	# On instancie les différents objets "maze", juste en bas :
 	m = maze()
 
-	m.bottom()
-	m.bottom()
-	m.bottom()
-	m.right()
-	m.right()
-	m.right()
-	print(m.find_new_coo())
 	print(m.check_move())
