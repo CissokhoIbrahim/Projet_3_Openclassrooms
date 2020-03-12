@@ -111,16 +111,24 @@ class maze:
 
 		return m_c
 
+	# On prend comme valeur l'attribut direction dans notre fonction check_move
 	def check_move(self, direction=False):
-		mac = self.mac_gyver.coordinates
-		case = self.find_new_coo([direction])
-		if mac == case:
+
+		# On stocke le labyrinthe dans une case, plus précisément, le 'mur'
+		case = self.labyrinthe(['m'])
+		# Si la direction est une case ou n'est pas une case return True
+		if direction == case || not case:
 			return True
-		else:
-			return False
+
+		# Si la condition d'en haut est fausse, elle va retourner False.
+		return False
 
 	def move(self, direction=False):
-		return True
+		case = self.check_move()
+		if direction == case:
+			if case == self.labyrinthe(['c']):
+
+
 
 
 
@@ -130,4 +138,4 @@ if __name__== "__main__":
 	# On instancie les différents objets "maze", juste en bas :
 	m = maze()
 
-	print(m.check_move())
+	print(m.move())
