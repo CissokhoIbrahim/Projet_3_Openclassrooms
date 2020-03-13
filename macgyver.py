@@ -4,6 +4,7 @@ class MacGyver():
 		self.coordinates = coo
 
 
+
 if __name__== "__main__":
 
 	pass

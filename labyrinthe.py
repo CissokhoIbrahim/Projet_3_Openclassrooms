@@ -111,26 +111,22 @@ class maze:
 
 		return m_c
 
-	# On prend comme valeur l'attribut direction dans notre fonction check_move
+	
 	def check_move(self, direction=False):
-
-		# On stocke le labyrinthe dans une case, plus précisément, le 'mur'
-		case = self.labyrinthe(['m'])
-		# Si la direction est une case ou n'est pas une case return True
-		if direction == case || not case:
+		case = self.find_new_coo([direction])
+		objects = self.append_objects()
+		if case == 'c':
+			return True
+		if case == 't':
+			return True
+		if case == 'e':
+			return True
+		if case == 's':
+			return True
+		if case == 'g' and objects == 3:
 			return True
 
-		# Si la condition d'en haut est fausse, elle va retourner False.
 		return False
-
-	def move(self, direction=False):
-		case = self.check_move()
-		if direction == case:
-			if case == self.labyrinthe(['c']):
-
-
-
-
 
 
 if __name__== "__main__":
@@ -138,4 +134,4 @@ if __name__== "__main__":
 	# On instancie les différents objets "maze", juste en bas :
 	m = maze()
 
-	print(m.move())
+	print(m.check_move())
