@@ -12,7 +12,7 @@ class maze:
 		self.mac_gyver = None
 		self.labyrinthe = self.parse_file()
 		self.objects = self.append_objects()
-		#self.verif = self.check_move()
+		self.verif = self.check_move()
 
 	# Méthode qui gère la parsing du fichier .txt représentant le labyrinthe
 	def parse_file(self):
