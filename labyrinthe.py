@@ -9,10 +9,11 @@ class maze:
 
 		# Lors de l'instanciation de l'objet, la méthode "parse_file" est automatiquement
 		# déclenchée, et son contenu est inséré dans un attribut "self.labyrinthe"
+
 		self.mac_gyver = None
 		self.labyrinthe = self.parse_file()
 		self.objects = self.append_objects()
-		self.verif = self.check_move()
+		self.verif = self.move()
 
 	# Méthode qui gère la parsing du fichier .txt représentant le labyrinthe
 	def parse_file(self):
@@ -113,20 +114,34 @@ class maze:
 
 	
 	def check_move(self, direction=False):
+		# Récupération des coordonnées de labyrinthe 
 		case = self.find_new_coo([direction])
+		# Récupération de la liste d'objets 
 		objects = self.append_objects()
+		# Si c'est un chemin retourner vrai
 		if case == 'c':
 			return True
+		# Si l'object 't' est sur la case,  ramasser cet objet
 		if case == 't':
+			self.sac += 1
 			return True
+		# Si l'object 'e' est sur la case, ramasser cet objet
 		if case == 'e':
+			self.sac += 1
 			return True
+		# Si l'object 's' est sur la case, ramasser cet objet
 		if case == 's':
+			self.sac += 1
 			return True
+		# Si le macgyver est sur la case du gardien et qu'il a ramasser les 3 objects, il aura gagné
 		if case == 'g' and objects == 3:
 			return True
-
+		# Sinon tout ce qui sera endehors de ses diférentes conditions, sera False.
 		return False
+
+	def move(self):
+		laby = self.parse_file()
+		return laby
 
 
 if __name__== "__main__":

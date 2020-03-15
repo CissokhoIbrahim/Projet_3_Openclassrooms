@@ -1,7 +1,12 @@
 class Objects():
 
-	def __init__(self, pick ):
-		self.Pickup = pick 
+	def __init__(self, sac=0):
+		if sac == 't':
+			sac += 1
+		if sac == 'e':
+			sac += 1
+		if sac == 's':
+			sac += 1
 
 if __name__== "__main__":
 # On instancie un objet "maze"

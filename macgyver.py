@@ -1,3 +1,5 @@
+import Objects
+
 class MacGyver():
 
 	def __init__(self, coo):
