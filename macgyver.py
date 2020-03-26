@@ -1,6 +1,4 @@
-import Objects
-
-class MacGyver():
+class MacGyver:
 
 	def __init__(self, coo):
 		self.coordinates = coo
