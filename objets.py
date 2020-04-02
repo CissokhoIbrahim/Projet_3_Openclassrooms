@@ -11,18 +11,16 @@ class Objects:
 
 		}
 
-	def __str__(self):
-		print("Compteur de l'objet : {}".format(self.custom_count))
+	
 
-
-	def add(self, items = 0):
-		if items == 't' and self.items{'t': True}:
+	def add(self, items):
+		if items == 't' and self.items['t': True]:
 			self.custom_count += 1
 			return True
-		if items == 't' and self.items{'e': True}:
+		if items == 't' and self.items['e': True]:
 			self.custom_count += 1
 			return True
-		if items == 't' and self.items{'s': True}:
+		if items == 't' and self.items['s': True]:
 			self.custom_count += 1
 			return True
 		return False
@@ -31,10 +29,8 @@ class Objects:
 
 
 if __name__== "__main__":
-# On instancie un objet "maze"
-	o = Objects()
 
-	print(o.add)
+	pass
 
 
 

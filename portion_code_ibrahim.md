@@ -1,8 +1,12 @@
 ```python
-def new_laby(self):
-	laby = self.labyrinthe
-	for i in range(10):
-		print(laby[i])
-        
+def parse_laby(laby):
+    laby = self.labyrinthe
+    for line in laby[:len(laby)]:
+        if line == 'm':
+        	laby[(x, y)] = "#"
+        if line == 'c':
+        	laby[(x, y)] = " "
+        if line == 'a':
+        	laby[(x, y)] = " ":
 
 ```
