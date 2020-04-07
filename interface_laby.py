@@ -1,42 +1,9 @@
-#Importation des bibliothèques nécessaires
+class Agent:
+    
+    def __init__(self, agent_attributes):
+        self.agreeableness = agent_attributes['agreeableness']
 
-import pygame
-from pygame.locals import *
+agent_attributes = {"neuroticism": -0.0739192627121713, "language": "Shona", "latitude": -19.922097800281783, "country_tld": "zw", "age": 12, "income": 333, "longitude": 29.798455535838603, "sex": "Male", "religion": "syncretic", "extraversion": 1.051833688742943, "date_of_birth": "2005-01-10", "agreeableness": 0.1441229877537559, "id_str": "LB3-3Cl", "conscientiousness": 0.2419104411765549, "internet": "false", "country_name": "Zimbabwe", "openness": -0.024607605122172617, "id": 6636726630}
 
-#Initialisation de la bibliothèque Pygame
-pygame.init()
-
-#Création de la fenêtre
-fenetre = pygame.display.set_mode((640,480))
-
-#Chargement et collage du fond
-fond = pygame.image.load("structures.png").convert()
-fenetre.blit(fond, (0, 0))
-
-#Chargement et collage du personnage
-perso = pygame.image.load("macgyver.png").convert_alpha()
-perso_x = 0
-perso_y = 0
-fenetre.blit(perso, (perso_x, perso_y))
-
-#Rafraîchissement de l'écran
-pygame.display.flip()
-
-
-#Boucle infinie
-continuer = 1
-while continuer:
-	for event in pygame.event.get():
-		if event.type == QUIT:
-			continuer = 0
-		if event.type == MOUSEBUTTONDOWN:
-			if event.button == 1:
-
-				perso_x = event.pos[0]
-				perso_y = event.pos[1]
-
-
-fenetre.blit(fond, (0, 0))
-fenetre.blit(perso, (perso_x, perso_y))
-
-pygame.display.flip()
+first_agent = Agent(agent_attributes)
+print(first_agent.agreeableness)

@@ -1,5 +1,5 @@
-mmmmdmmcccccccm
-mcmmccmccmcmccm
+mmmmmmmmmmmmmmm
+mcmmdcmccmcmccm
 mcmmccmccmcmccm
 mcccccmccccccmm
 mcccccmccmmcccm
@@ -7,9 +7,9 @@ mcccmcccccccccm
 mcccccmcccccccm
 mmmmccmcmmmmccm
 mcccccmccmmmccm
-mcccccmccccgccm
+mcccccmcccccccm
 mccmmcmccmmcccm
 mcccccmcccccccm
 mcccccmcccccccm
-mcccccmccmmcccm
-mcccccmccccccca
+mcccccmccmmccgm
+mmmcmmmmmmmmmmm
