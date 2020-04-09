@@ -1,3 +1,4 @@
+from macgyver import MacGyver
 # Gestionnaire du labyrinthe
 class maze:
 
@@ -7,7 +8,9 @@ class maze:
 
         # Lors de l'instanciation de l'objet, la méthode "parse_file" est automatiquement
         # déclenchée, et son contenu est inséré dans un attribut "self.labyrinthe"
+        self.mac_gyver = None
         self.labyrinthe = self.parse_file()
+
     # Méthode qui gère le parsing du fichier .txt représentant le labyrinthe
 
     def parse_file(self):
@@ -22,11 +25,15 @@ class maze:
         for line in f:
             # On parcours les caractères de "line"
             for caracter in line:
-                # Si le caractère est un 'retour a la ligne"
+                # Si le caractère est un 'd' alors créer la paire de clés 'MacGyver' "
+                if caracter == 'd':
+                    self.mac_gyver = MacGyver([x, y])
+                # Si le caractère est un 'retour a la ligne"    
                 if caracter == "\n":
                     # on repasse y à 0, et x à x+1
                     y = 0
                     x = x+1
+                
                 # Sinon le caractère n'est pas un 'retour a la ligne'
                 else:
                     # On créer la paire "clé : valeur" dans le dictionnaire "content"
@@ -39,26 +46,29 @@ class maze:
 
 
     def bottom(self, direction=False):
-        a = input("Appuyer sur la touche 'w' pour aller en bas ! ")
-        if a == "w":
-            self.parse_laby(1+1, 4)
+        a = input("Appuyer sur la touche 'W' pour aller en haut : ")
+        if a == "W":
+            self.mac_gyver.coordinates[0] += 1
 
     def top(self):
         a = input("Appuyer sur la touche 'z' pour aller en haut : ")
         if a == "z":
-            print("Vous êtes bien en haut")
+            self.mac_gyver.coordinates[0] -= 1
 
 
     def left(self):
         a = input("Appuyer sur la touche 'q' pour aller à gauche : ")
         if a == "q":
-            print("Vous êtes bien à gauche")
+            self.mac_gyver.coordinates[1] -= 1
 
     def right(self):
-        a = input("Appuyer sur la touche 'd' pour aller en bas ! ")
+        a = input("Appuyer sur la touche 'd' pour aller  àdroite ! ")
         if a == "d":
-            print("Vous êtes bien à droite")
+            self.mac_gyver.coordinates[1] += 1
     
+
+
+
 
     def parse_laby(self):
         line = ""
@@ -77,12 +87,27 @@ class maze:
                 print(line)
                 cpt = 0
                 line = ""
+        return line
 
+
+    def find_new_coo(self, direction=False):
+        m_c = self.mac_gyver.coordinates
+        if direction == "bottom":
+            m_c[0] += 1
+        if direction == "top":
+            m_c[0] -= 1
+        if direction == "left" :
+            m_c[1] -= 1
+        if direction == "right":
+            m_c[1] += 1
+        return m_c
 
 if __name__== "__main__":
 
     # On instancie les différents objets "maze", juste en bas :
     m = maze()
 
+    
+    print(m.parse_laby())
     m.bottom()
     print(m.parse_laby())
