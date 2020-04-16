@@ -1,4 +1,5 @@
 from macgyver import MacGyver
+from objets import Objects
 # Gestionnaire du labyrinthe
 class maze:
 
@@ -42,35 +43,68 @@ class maze:
         return content
 
 
+    # Créer une méthode qui récupère toutes les "clés" de l'attribut "self.labyrinthe" dont la valeur est "c" (pour chemin !)
+
+    def get_keys(self):
+        liste = []
+        for key, value in self.labyrinthe.items():
+            if value == 'c':
+                liste.append(key)
+        return liste
+
+    # Cette fonction chosir aléatoirement 3 coordonées
+
+    def random_coordinates(self):
+        import random
+        liste = self.get_keys()
+        liste_coordinates = []
+        # je parcours 3 fois 
+        for i in range(0,3):
+            random.shuffle(liste)
+            liste_coordinates.append(liste[0])
+            liste.pop(0)
+        return liste_coordinates
+
+
+    # Ensuite, se servir de cette méthode pour récupérer 3 coordonnées,
+    # aléatoirement, afin d'y placer nos 3 objets (tube, ether, seringue)
+
+    def append_objects(self):
+        liste = self.random_coordinates()
+        liste[0] = 't'
+        print(liste[0])
+        liste[1] = 's'
+        liste[2] = 'e'
+        return liste
+
     # Les différentes fonctions que Mac_gyver emprunte
 
 
-    def bottom(self, direction=False):
-        a = input("Appuyer sur la touche 'W' pour aller en haut : ")
-        if a == "W":
-            self.mac_gyver.coordinates[0] += 1
+    def bottom(self):    
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+        self.mac_gyver.coordinates[0] += 1
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
 
     def top(self):
-        a = input("Appuyer sur la touche 'z' pour aller en haut : ")
-        if a == "z":
-            self.mac_gyver.coordinates[0] -= 1
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+        self.mac_gyver.coordinates[0] -= 1
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
 
 
     def left(self):
-        a = input("Appuyer sur la touche 'q' pour aller à gauche : ")
-        if a == "q":
-            self.mac_gyver.coordinates[1] -= 1
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+        self.mac_gyver.coordinates[1] -= 1
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
+
 
     def right(self):
-        a = input("Appuyer sur la touche 'd' pour aller  àdroite ! ")
-        if a == "d":
-            self.mac_gyver.coordinates[1] += 1
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+        self.mac_gyver.coordinates[1] += 1
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
     
 
-
-
-
     def parse_laby(self):
+        objects = self.append_objects()
         line = ""
         cpt = 0
         for key, value in self.labyrinthe.items():
@@ -89,25 +123,45 @@ class maze:
                 line = ""
         return line
 
+    def check_move(self):
+        if self.mac_gyver.coordinates[1] < 0 or self.mac_gyver.coordinates[0] < 0:
+            return None
+        elif self.mac_gyver.coordinates[0] or self.mac_gyver.coordinates[1] != " ":
+            return None
+        else :
+            return [self.mac_gyver.coordinates[0], self.mac_gyver.coordinates[1]]
+    
+    def move(self):
+        case = self.labyrinthe[tuple(self.mac_gyver.coordinates)]
+        objects = self.append_objects()
+        self.parse_laby()
+        self.check_move()
+        a = input(" Les flêches directionnelles sont : Gauche = q ; Bas = w ; Haut = z ; Droite = d : ")
+        if a == "w":
+            self.bottom()
+        elif a == "z":
+            self.top()
+        elif a == "d":
+            self.right()
+        elif a == "q":
+            self.left()
+        if case == objects:
+            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
+            self.custom_count += 1
+            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+        if case == "G":
+            print("Le nombre d'objects récupérer : {} et l'object lui même %s"% str (append_objects)(self.custom_count))
+        if objects == 3:
+            printt("MacGyver à gagner !!!!!! ")
+        else :
+            print("Il a perdu !!!! ")         
+        self.parse_laby()
 
-    def find_new_coo(self, direction=False):
-        m_c = self.mac_gyver.coordinates
-        if direction == "bottom":
-            m_c[0] += 1
-        if direction == "top":
-            m_c[0] -= 1
-        if direction == "left" :
-            m_c[1] -= 1
-        if direction == "right":
-            m_c[1] += 1
-        return m_c
+
 
 if __name__== "__main__":
 
     # On instancie les différents objets "maze", juste en bas :
     m = maze()
 
-    
-    print(m.parse_laby())
-    m.bottom()
-    print(m.parse_laby())
+    print(m.append_objects())
