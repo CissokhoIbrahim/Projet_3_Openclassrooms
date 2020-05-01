@@ -68,14 +68,6 @@ class maze:
     # Ensuite, se servir de cette méthode pour récupérer 3 coordonnées,
     # aléatoirement, afin d'y placer nos 3 objets (tube, ether, seringue)
 
-    def append_objects(self):
-        liste = self.labyrinthe
-        liste_append_objects = liste
-        liste_append_objects[0] = "t"
-        liste_append_objects[1] = "e"
-        liste_append_objects[2] = "s"
-        return liste_append_objects
-
 
     # Les différentes fonctions que Mac_gyver emprunte
 
@@ -111,11 +103,9 @@ class maze:
             return m_c
 
 
-        def check_move(self, direction=False):
+        def check_move(self):
             # Récupération des coordonnées de labyrinthe 
-            case = self.find_new_coo([direction])
-            # Récupération de la liste d'objets 
-            objects = self.append_objects()
+            case = self.labyrinthe[tuple(self.mac_gyver.coordinates)]
             # Si c'est un chemin retourner vrai
             if case == 'c':
                 return True
@@ -129,12 +119,12 @@ class maze:
             if case == 's':
                 return True
             # Si le macgyver est sur la case du gardien et qu'il a ramasser les 3 objects, il aura gagné
-            if case == 'g' and Objects == 3:
+            if case == 'g' and objects == 3:
                 return True
             # Sinon tout ce qui sera endehors de ses diférentes conditions, sera False.
             return False
 
-    def move(self, direction=False):
+    def move(self):
         laby = self.parse_laby()
         case = self.check_move()
         m_c = self.mac_gyver.coordinates
@@ -175,6 +165,13 @@ class maze:
             print("Vous avez gagnez ! ")
         else:
             print("Vous avez perdu ! ")
+
+
+        q = self.left()
+        d = self.right()
+        w = self.bottom()
+        z = self.top()
+        case = self.labyrinthe[tuple(self.mac_gyver.coordinates)]
 
 
 
