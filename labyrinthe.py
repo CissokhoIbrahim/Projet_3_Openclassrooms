@@ -12,7 +12,7 @@ class maze:
         self.mac_gyver = None
         self.labyrinthe = self.parse_file()
         self.get_objects = self.get_items()
-        self.mac_gyver.bag = Objects()
+        self.mac_gyver.bag = 0
 
     # Méthode qui gère le parsing du fichier .txt représentant le labyrinthe
 
@@ -54,13 +54,6 @@ class maze:
                 liste.append(key)
         return liste
 
-    def get_walls(self):
-        liste = []
-        for key, value in self.labyrinthe.items():
-            if value == 'm':
-                liste.append(key)
-        return liste
-
     # Cette fonction chosir aléatoirement 3 coordonées
 
     def random_coordinates(self):
@@ -85,54 +78,58 @@ class maze:
         self.labyrinthe[(tuple(liste[2]))] = "e"
         return liste
 
-    # Les différentes fonctions que Mac_gyver emprunte
-
+    # Les différentes fonctions que Mac_gyver emprunte pour ses déplacements
 
     def bottom(self):
-        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
-        self.mac_gyver.coordinates[0] += 1
-        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
+        if self.check_move(): 
+            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+            self.mac_gyver.coordinates[0] += 1
+            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
+        elif self.mac_gyver.bag == "tse":
+            self.mac_gyver.bag += 1
+            print("Vous avez", self.mac_gyver.bag, "objet !!! ")
+
 
     def top(self):
-        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
-        self.mac_gyver.coordinates[0] -= 1
-        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
+        if self.check_move():
+            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+            self.mac_gyver.coordinates[0] -= 1
+            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
+        elif self.mac_gyver.bag == "tse":
+            self.mac_gyver.bag += 1
+            print("Vous avez", self.mac_gyver.bag, "objet !!! ")
+
 
 
     def left(self):
-        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
-        self.mac_gyver.coordinates[1] -= 1
-        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
+        if self.check_move():
+            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+            self.mac_gyver.coordinates[1] -= 1
+            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
+        elif self.mac_gyver.bag == "tse":
+            self.mac_gyver.bag += 1
+            print("Vous avez", self.mac_gyver.bag, "objet !!! ")
+
 
 
     def right(self):
-        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
-        self.mac_gyver.coordinates[1] += 1
-        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
+        if self.check_move():
+            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+            self.mac_gyver.coordinates[1] += 1
+            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
+        elif self.mac_gyver.bag == "tse":
+            self.mac_gyver.bag += 1
+            print("Vous avez", self.mac_gyver.bag, "objet !!! ")
 
     def check_move(self):
         # Récupération des coordonnées de labyrinthe 
         case = self.labyrinthe[tuple(self.mac_gyver.coordinates)]
-        objects = self.get_objects
         # Si c'est un mur retourner False
-        if case == "m":
-            return True
-        # Si l'object 't' est sur la case,  ramasser cet objet
-        if case == "t":
-            return True
-        # Si l'object 'e' est sur la case, ramasser cet objet
-        if case == "e":
-            return True
-        # Si l'object 's' est sur la case, ramasser cet objet
-        if case == "s":
-            return True
-        # Si le macgyver est sur la case du gardien et qu'il a ramasser les 3 objects, il aura gagné
-        if case == "g" and objects == 3:
+        if case == "mtse" or case == "g" and self.mac_gyver.bag == 3:
             return True
         # Sinon tout ce qui sera endehors de ses diférentes conditions, sera False.
         else :
             return False
-
 
     def parse_laby(self):
         line = ""
@@ -160,26 +157,19 @@ class maze:
         return line
 
 
-    def move(self):
-        case = self.mac_gyver.coordinates
+    def move(self, direction):
         self.parse_laby()
-        if case == "m":
-            return True
-        else:
-            self.bottom()
-        if case == "m":
-            return False
-        else:
-            self.top()
-        if case == "m":
-            return False
-        else:
-            self.right()
-        if case == "m":
-            return False
-        else:
-            self.left()        
-        self.parse_laby()
+        if check_move():
+            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+            if direction == "bottom":
+                self.mac_gyver.coordinates[0] += 1
+            if direction == "top":
+                self.mac_gyver.coordinates[0] -= 1
+            if direction == "left":
+                self.mac_gyver.coordinates[1] -= 1
+            if direction == "right":
+                self.mac_gyver.coordinates[1] += 1
+            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
 
 
 if __name__== "__main__":
@@ -187,4 +177,6 @@ if __name__== "__main__":
     # On instancie les différents objets "maze", juste en bas :
     m = maze()
 
-    print(m.move())
+    print(m.parse_laby())
+    m.left()
+    print(m.parse_laby())
