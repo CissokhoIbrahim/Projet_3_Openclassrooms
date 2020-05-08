@@ -73,63 +73,37 @@ class maze:
 
     def get_items(self):
         liste = self.random_coordinates()
-        self.labyrinthe[(tuple(liste[0]))] = "t"
-        self.labyrinthe[(tuple(liste[1]))] = "s"
-        self.labyrinthe[(tuple(liste[2]))] = "e"
+        self.labyrinthe[(tuple(liste[0]))] = 't'
+        self.labyrinthe[(tuple(liste[1]))] = 's'
+        self.labyrinthe[(tuple(liste[2]))] = 'e'
         return liste
 
     # Les différentes fonctions que Mac_gyver emprunte pour ses déplacements
 
     def bottom(self):
-        if self.check_move(): 
-            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
-            self.mac_gyver.coordinates[0] += 1
-            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
-        elif self.mac_gyver.bag == "tse":
-            self.mac_gyver.bag += 1
-            print("Vous avez", self.mac_gyver.bag, "objet !!! ")
-
+        m.move("bottom")
 
     def top(self):
-        if self.check_move():
-            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
-            self.mac_gyver.coordinates[0] -= 1
-            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
-        elif self.mac_gyver.bag == "tse":
-            self.mac_gyver.bag += 1
-            print("Vous avez", self.mac_gyver.bag, "objet !!! ")
-
-
-
+        m.move("top")
+        
     def left(self):
-        if self.check_move():
-            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
-            self.mac_gyver.coordinates[1] -= 1
-            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
-        elif self.mac_gyver.bag == "tse":
-            self.mac_gyver.bag += 1
-            print("Vous avez", self.mac_gyver.bag, "objet !!! ")
-
-
-
+        m.move("left")
+        
     def right(self):
-        if self.check_move():
-            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
-            self.mac_gyver.coordinates[1] += 1
-            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
-        elif self.mac_gyver.bag == "tse":
-            self.mac_gyver.bag += 1
-            print("Vous avez", self.mac_gyver.bag, "objet !!! ")
+        m.move("right")
+
 
     def check_move(self):
         # Récupération des coordonnées de labyrinthe 
         case = self.labyrinthe[tuple(self.mac_gyver.coordinates)]
-        # Si c'est un mur retourner False
-        if case == "mtse" or case == "g" and self.mac_gyver.bag == 3:
+        if (case == "ctse") or (case == "g" and self.mac_gyver.bag) == 3:
             return True
+        elif (case == "m"):
+            return False
         # Sinon tout ce qui sera endehors de ses diférentes conditions, sera False.
         else :
             return False
+
 
     def parse_laby(self):
         line = ""
@@ -157,18 +131,35 @@ class maze:
         return line
 
 
-    def move(self, direction):
-        self.parse_laby()
-        if check_move():
+
+    def move(self, direction=False): 
+        a = input(" Les fleches directionnelles sont : Gauche = q ; Bas = w ; Haut = z ; Droite = f : ")
+        if self.check_move() == False:
             self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
-            if direction == "bottom":
-                self.mac_gyver.coordinates[0] += 1
-            if direction == "top":
-                self.mac_gyver.coordinates[0] -= 1
-            if direction == "left":
-                self.mac_gyver.coordinates[1] -= 1
-            if direction == "right":
-                self.mac_gyver.coordinates[1] += 1
+            if a == "w":
+                if direction == "bottom":
+                    self.mac_gyver.coordinates[0] += 1
+                    if self.labyrinthe[tuple(self.mac_gyver.coordinates)] == "tse":
+                        self.mac_gyver.bag += 1
+                    print("Vous avez : {} objet !!! ".format(self.mac_gyver.bag))
+            if a == "z":
+                if direction == "top":
+                    self.mac_gyver.coordinates[0] -= 1
+                    if self.labyrinthe[tuple(self.mac_gyver.coordinates)] == "tse":
+                        self.mac_gyver.bag += 1
+                    print("Vous avez : {} objet !!! ".format(self.mac_gyver.bag))
+            if a == "f":
+                if direction == "left":
+                    self.mac_gyver.coordinates[1] -= 1
+                    if self.labyrinthe[tuple(self.mac_gyver.coordinates)] == "tse":
+                        self.mac_gyver.bag += 1
+                    print("Vous avez : {} objet !!! ".format(self.mac_gyver.bag))
+            if a == "q":
+                if direction == "right":
+                    self.mac_gyver.coordinates[1] += 1
+                    if self.labyrinthe[tuple(self.mac_gyver.coordinates)] == "tse":
+                        self.mac_gyver.bag += 1
+                    print("Vous avez : {} objet !!! ".format(self.mac_gyver.bag))
             self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
 
 
@@ -177,6 +168,4 @@ if __name__== "__main__":
     # On instancie les différents objets "maze", juste en bas :
     m = maze()
 
-    print(m.parse_laby())
-    m.left()
-    print(m.parse_laby())
+    print(m.labyrinthe)

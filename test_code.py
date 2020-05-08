@@ -83,6 +83,35 @@ class maze:
     def right(self):
         self.mac_gyver.coordinates[1] += 1
 
+
+    def bottom(self):
+        if self.check_move(): 
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+        self.mac_gyver.coordinates[0] += 1
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
+
+
+    def top(self):
+        if self.check_move():
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+        self.mac_gyver.coordinates[0] -= 1
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
+
+
+
+    def left(self):
+        if self.check_move():
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+        self.mac_gyver.coordinates[1] -= 1
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
+
+
+    def right(self):
+        if self.check_move():
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+        self.mac_gyver.coordinates[1] += 1
+        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
+
         # Une fonction qui récupère, trouve les nouvelles coordonées de macgyver et de sa position initiale et de sa direction et renvoie ses nouvelles coordonnées
         
         def find_new_coo(self, direction=False):
@@ -102,13 +131,22 @@ class maze:
 
             return m_c
 
-
+        def check_move(self):
+        # Récupération des coordonnées de labyrinthe 
+        case = self.labyrinthe[tuple(self.mac_gyver.coordinates)]
+        # Si c'est un mur retourner False
+        if case == "mtse" or case == "g" and self.mac_gyver.bag == 3:
+            return True
+        # Sinon tout ce qui sera endehors de ses diférentes conditions, sera False.
+        else :
+            return False
+            
         def check_move(self):
             # Récupération des coordonnées de labyrinthe 
             case = self.labyrinthe[tuple(self.mac_gyver.coordinates)]
-            # Si c'est un chemin retourner vrai
-            if case == 'c':
-                return True
+            # Si c'est un mur retourner False
+            if case == 'm':
+                return False
             # Si l'object 't' est sur la case,  ramasser cet objet
             if case == 't':
                 return True
