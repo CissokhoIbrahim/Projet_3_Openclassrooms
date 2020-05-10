@@ -83,6 +83,17 @@ class maze:
     def right(self):
         self.mac_gyver.coordinates[1] += 1
 
+    def bottom(self):
+        m.move("bottom")
+
+    def top(self):
+        m.move("top")
+
+    def left(self):
+        m.move("left")
+
+    def right(self):
+        m.move("right")
 
     def bottom(self):
         if self.check_move(): 
@@ -133,10 +144,15 @@ class maze:
 
         def check_move(self):
         # Récupération des coordonnées de labyrinthe 
-        case = self.labyrinthe[tuple(self.mac_gyver.coordinates)]
+        case_y = self.mac_gyver.coordinates[0]
+        case_x = self.mac_gyver.coordinates[1]
         # Si c'est un mur retourner False
-        if case == "mtse" or case == "g" and self.mac_gyver.bag == 3:
+        if case_x or case_y == "ctse":
             return True
+        elif case_x or case_y == "g" and self.mac_gyver.bag == 3:
+            return True
+        elif case_x or case_y == "m":
+            return False
         # Sinon tout ce qui sera endehors de ses diférentes conditions, sera False.
         else :
             return False
@@ -161,7 +177,22 @@ class maze:
                 return True
             # Sinon tout ce qui sera endehors de ses diférentes conditions, sera False.
             return False
+            
+    def move(self, direction=True):
+        self.parse_laby()
+        if self.check_move():
+            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+            if direction == "bottom":
+                self.mac_gyver.coordinates[0] += 1
+            if direction == "top":
+                self.mac_gyver.coordinates[0] -= 1
+            if direction == "left":
+                self.mac_gyver.coordinates[1] -= 1
+            if direction == "right":
+                self.mac_gyver.coordinates[1] += 1
+            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
 
+            
     def move(self):
         laby = self.parse_laby()
         case = self.check_move()
