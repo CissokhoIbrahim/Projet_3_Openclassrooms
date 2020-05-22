@@ -99,12 +99,34 @@ class maze:
         m.move("right")
 
 
+    def check_move(self, direction=True):
 
-    def check_move(self):
-        if self.mac_gyver.coordinates[0] or self.mac_gyver.coordinates[1] == "m":
-            print("Vous ne pouvez pas passez !!! ")
+        destination = 0
+        # case de macGyver
+        case_mac_gyver = self.labyrinthe[tuple(self.mac_gyver.coordinates)]
+
+        # case des coordonnées de DESTINATION
+        coo_actuelles = self.mac_gyver.coordinates
+
+        if direction == "bottom":
+            destination = self.labyrinthe[(self.mac_gyver.coordinates[0] + 1, self.mac_gyver.coordinates[1])]
+
+        if direction == "top":
+            destination = self.labyrinthe[(self.mac_gyver.coordinates[0] -1, self.mac_gyver.coordinates[1])]
+
+        if direction == "left":
+            destination = self.labyrinthe[(self.mac_gyver.coordinates[0], self.mac_gyver.coordinates[1] - 1)]
+
+        if direction == "right":
+            destination = self.labyrinthe[(self.mac_gyver.coordinates[0], self.mac_gyver.coordinates[1] + 1)]
+        
+        # en fonction de la case
+        if direction in "m":
             return False
-        return True
+        else:
+            return True 
+        # return True / False
+
     def parse_laby(self):
         line = ""
         cpt = 0
@@ -132,38 +154,43 @@ class maze:
 
 
     def move(self, direction=False):
-        a = input(" Les flêches directionnelles sont : Gauche = q ; Bas = s ; Haut = z ; Droite = f : ")
-        if self.check_move():
-            self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+        while True:
+            self.parse_laby()
+            a = input(" Les flêches directionnelles sont : Gauche = q ; Bas = s ; Haut = z ; Droite = f : ")
             if a == "w":
                 if direction == "bottom":
                     self.mac_gyver.coordinates[0] += 1
                     if self.labyrinthe[tuple(self.mac_gyver.coordinates)] in "tse":
                         self.mac_gyver.bag += 1
-                        print("Vous avez : {} objet !!! ".format(self.mac_gyver.bag))
-        if a == "z":
-            if direction == "top":
-                self.mac_gyver.coordinates[0] -= 1
-        if a == "q":
-            if direction == "left":
-                self.mac_gyver.coordinates[1] -= 1
-        if a == "f":
-            if direction == "right":
-                self.mac_gyver.coordinates[1] += 1
-        self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
-
+                        print("Vous avez pour l'instant {} ".format(self.mac_gyver.bag))
+            if a == "z":
+                if direction == "top":
+                    self.mac_gyver.coordinates[0] -= 1
+                    if self.labyrinthe[tuple(self.mac_gyver.coordinates)] in "tse":
+                        self.mac_gyver.bag += 1
+                        print("Vous avez pour l'instant {} ".format(self.mac_gyver.bag))
+            if a == "q":
+                if direction == "left":
+                    self.mac_gyver.coordinates[1] -= 1
+                    if self.labyrinthe[tuple(self.mac_gyver.coordinates)] in "tse":
+                        self.mac_gyver.bag += 1
+                        print("Vous avez pour l'instant {} ".format(self.mac_gyver.bag))
+            if a == "f":
+                if direction == "right":
+                    self.mac_gyver.coordinates[1] += 1
+                    if self.labyrinthe[tuple(self.mac_gyver.coordinates)] in "tse":
+                        self.mac_gyver.bag += 1
+                        print("Vous avez pour l'instant {} ".format(self.mac_gyver.bag))
+            if self.labyrinthe[tuple(self.mac_gyver.coordinates)] == "g" and self.mac_gyver.bag == 3:
+                print("Vous avez gagnez !!!! ")
+            else:
+                print("Vous avez perdu !!!!")
+                break
+        return self.parse_laby()
 
 if __name__== "__main__":
 
     # On instancie les différents objets "maze", juste en bas :
     m = maze()
 
-print(m.parse_laby())
-m.bottom()
-print(m.parse_laby())
-m.bottom()
-print(m.parse_laby())
-m.bottom()
-print(m.parse_laby())
-m.bottom()
-print(m.parse_laby())
+    print(m.move())
