@@ -104,17 +104,18 @@ class maze:
         destination = None
 
         
-        if direction == "bottom" or K_BOTTOM == "bottom":
-            destination = self.labyrinthe[(self.mac_gyver.coordinates[0] + 1, self.mac_gyver.coordinates[1])]
+        if direction == "bottom":
+            destination = self.labyrinthe[(self.mac_gyver.coordinates[0] + 1, self.mac_gyver.coordinates[1])] 
         
-        if direction == "top" or K_UP == "top":
-            destination = self.labyrinthe[(self.mac_gyver.coordinates[0] -1, self.mac_gyver.coordinates[1])]
+        if direction == "top":
+            destination = self.labyrinthe[(self.mac_gyver.coordinates[0] -1, self.mac_gyver.coordinates[1])] 
         
-        if direction == "left" or K_LEFT == "left":
+        if direction == "left":
             destination = self.labyrinthe[(self.mac_gyver.coordinates[0], self.mac_gyver.coordinates[1] - 1)]
         
-        if direction == "right" or K_RIGHT == "right":
+        if direction == "right":
             destination = self.labyrinthe[(self.mac_gyver.coordinates[0], self.mac_gyver.coordinates[1] + 1)]
+
 
 
         if destination == "m":
@@ -174,23 +175,30 @@ class maze:
         de la liste de structure renvoyée par generer()"""
         #Chargement des images (seule celle d'arrivée contient de la transparence)
         mur = pygame.image.load(image_Mur).convert()
+        Mac_gyverr = pygame.image.load(image_Mac__gyver).convert_alpha()
         Guard = pygame.image.load(image_Guard).convert_alpha()
-        
-        num_ligne = 0
-        #On parcourt la liste du niveau
-        for sprite in ligne:
-            #On parcourt les listes de lignes
-            num_case = 0
-            for line in self.labyrinthe.items():
-                #On calcule la position réelle en pixels
-                x = num_case * taille_sprite
-                y = num_ligne * taille_sprite
-                if sprite == 'm':          #m = Mur
-                    fenetre.blit(mur, (x,y))
-                if sprite == 'g': #a = Arrivée
-                    fenetre.blit(Guard, (x,y))
-                num_case += 1
-            num_ligne += 1
+        Seringue = pygame.image.load(image_seringue).convert_alpha()
+        Ether = pygame.image.load(image_ether).convert_alpha()
+        Aiguille = pygame.image.load(image_aiguille).convert_alpha()
+        for key, value in self.labyrinthe.items():
+            x = key[0] * taille_sprite
+            y = key[1] * taille_sprite
+            pos_x = self.mac_gyver.coordinates[1] * taille_sprite
+            pos_y = self.mac_gyver.coordinates[0] * taille_sprite
+            if value == 'd':
+                fenetre.blit(Mac_gyverr, (pos_x,pos_y))
+            if value == 'm': #m = Mur
+                fenetre.blit(mur, (x,y))
+            if value == 'g': #g = Guardien
+                fenetre.blit(Guard, (x,y))
+            if value == 's':
+                fenetre.blit(Seringue, (x,y))
+            if value == 'e':
+                fenetre.blit(Ether, (x,y))
+            if value == 't':
+                fenetre.blit(Aiguille, (x,y))
+
+
 
     # Cette fonction récupère les différents déplacements de Macgyver.
     def move(self, direction = False):
@@ -200,9 +208,10 @@ class maze:
                 self.mac_gyver.coordinates[0] += 1
                 self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
 
+
         if direction == "top":
             if self.check_move(direction):
-                self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
+                self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c" 
                 self.mac_gyver.coordinates[0] -= 1
                 self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
 
@@ -217,6 +226,7 @@ class maze:
                 self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
                 self.mac_gyver.coordinates[1] += 1
                 self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
+        
 
 if __name__ == '__main__':
 

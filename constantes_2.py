@@ -12,6 +12,6 @@ image_Mac__gyver = "ressource/Macgyver.png"
 image_Guard = "ressource/Gardien.png"
 
 # Les images des 3 objets que macgyver doit ramasser
-image_seringhe = "ressource/seringhe.png"
+image_seringue = "ressource/seringue.png"
 image_ether = "ressource/ether.png"
-image_tube = "ressource/tube.png"
+image_aiguille = "ressource/aiguille.png"
