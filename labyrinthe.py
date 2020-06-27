@@ -2,56 +2,55 @@ import pygame
 from pygame.locals import * 
 from macgyver import MacGyver
 from constantes_2 import * 
-# Gestionnaire du labyrinthe
+# Maze Manager
 class maze:
 
 
-    # Constructeur : se déclenche automatiquement lors de la création d'un objet "maze"
+    # Builder: triggers automatically when creating a "maze" object
     def __init__(self):
-        # Lors de l'instanciation de l'objet, la variable "Macgyver" est automatiquement
-        # déclenchée, et sa valeur est None
+        # When the object is instanciated, the variable "Macgyver" is automatically
+        # triggered, and its value is None 
         self.mac_gyver = None
-        # Lors de l'instanciation de l'objet, la méthode "parse_file" est automatiquement
-        # déclenchée, et son contenu est inséré dans un attribut "self.labyrinthe"
+        # When the object is instanciated, the "parse_file" method is automatically
+        # triggered, and its contents are inserted into a self.labyrinth attribute
         self.labyrinthe = self.parse_file()
-        # Lors de l'instanciation de l'objet, la méthode "get_items" est automatiquement
-        # déclenchée, et son contenu est inséré dans un attribut "self.get_objects"
+        # When the object is instanciated, the "get_items" method is automatically
+        # triggered, and its content is inserted into a "self.get_objects" attribute.
         self.get_objects = self.get_items()
-        # Nous instancions le compteur du sac à dos de "Macgyver" à 0, il doit ramasser 3 objets
+        # We would instanait the counter of the backpack from "Macgyver" to 0, it must pick up 3 objects
         self.mac_gyver.bag = 0
 
-    # Méthode qui gère le parsing du fichier .txt représentant le labyrinthe
-
+    # Method that manages the parsing of the .txt file representing the maze
     def parse_file(self):
-        # On crée les variables / tableaux nécessaire à la méthode
+        # The variables/tables needed for the method are created
         content = {}
         x, y = 0, 0
 
-        # On ouvre le fichier en lecture et on affecte son contenu à "f"
+        # We open the file in playback and assign its contents to "f"
         f = open("labyrinthe.txt", "r")
 
-        # On parcours les lignes de "f"
+        # We walk the lines of "f"
         for line in f:
-            # On parcours les caractères de "line"
+            # We're going through the characters of "line"
             for caracter in line:
-                # Si le caractère est un 'd' alors créer la paire de clés 'MacGyver' "
+                # If the character is a 'd' then create the pair of keys 'MacGyver'
                 if caracter == 'd':
                     self.mac_gyver = MacGyver([x, y])
-                # Si le caractère est un 'retour a la ligne"    
+                # If the character is a 'back to the line'"    
                 if caracter == "\n":
-                    # on repasse y à 0, et x à x+1
+                    # we iron y to 0, and x to x-1
                     y = 0
                     x = x+1
                 
-                # Sinon le caractère n'est pas un 'retour a la ligne'
+                # Otherwise the character is not a 'back to the line'
                 else:
-                    # On créer la paire "clé : valeur" dans le dictionnaire "content"
+                    # We create the pair "key: value" in the dictionary "content"
                     content[(x, y)] = caracter
                     y = y+1
         return content
 
 
-    # Créer une méthode qui récupère toutes les "clés" de l'attribut "self.labyrinthe" dont la valeur est "c" (pour chemin !)
+    # Create a method that recovers all the "keys" of the "self.labyrinth" attribute whose value is "c" (for way!)
 
     def get_keys(self):
         liste = []
@@ -60,7 +59,7 @@ class maze:
                 liste.append(key)
         return liste
 
-    # Cette fonction chosir aléatoirement 3 coordonées
+    # This function randomly selects 3 coordinated
 
     def random_coordinates(self):
         import random
@@ -74,9 +73,9 @@ class maze:
         return liste_coordinates
 
 
-    # Ensuite, se servir de cette méthode pour récupérer 3 coordonnées,
-    # aléatoirement, afin d'y placer nos 3 objets (tube, ether, seringue)
-
+    
+    # Then, use this method to recover 3 coordinates,
+    # randomly, in order to place our 3 objects (tube, ether, syringe)
     def get_items(self):
         liste = self.random_coordinates()
         self.labyrinthe[(tuple(liste[0]))] = 't'
@@ -84,7 +83,7 @@ class maze:
         self.labyrinthe[(tuple(liste[2]))] = 'e'
         return liste
 
-    # Les différentes fonctions de déplacements de Mac_gyver
+    # The different travel functions of Mac_gyver
 
     def bottom(self):
         m.move("bottom")
@@ -98,7 +97,7 @@ class maze:
     def right(self):
         m.move("right")
 
-    # La fontion check_move qui vérifie si le déplacement est autorisé et si ont peut ramasser un objet ou non
+    # The fontion check_move that verifies whether the move is allowed and whether they can pick up an object or not
     def check_move(self, direction = False):
 
         destination = None
@@ -126,25 +125,28 @@ class maze:
         
         if destination == 't':
             self.mac_gyver.bag += 1
+            print("Vous avez : {} objet .".format(self.mac_gyver.bag))
             return True
             
         if destination == 's':
             self.mac_gyver.bag += 1
+            print("Vous avez : {} objet .".format(self.mac_gyver.bag))
             return True
             
         if destination == 'e':
             self.mac_gyver.bag += 1
+            print("Vous avez : {} objet .".format(self.mac_gyver.bag))
             return True
         
         if destination == "g":
             if self.mac_gyver.bag == 3:
+                print(" Vous avez gagnez !!!! .")
                 return True
             else:
+                print(" Vous avez perdu !!!! .")
                 return True
-        else:
-            return True
 
-    # Cette fonction dessine la fonction (self.labyrinthe), de 15 lignes en hauteur et largeur
+    # This function draws function (self.labyrinth), 15 lines in height and width
     def parse_laby(self):
         line = ""
         cpt = 0
@@ -171,36 +173,37 @@ class maze:
         return line
 
     def afficher(self, fenetre):
-        """Méthode permettant d'afficher le niveau en fonction 
-        de la liste de structure renvoyée par generer()"""
-        #Chargement des images (seule celle d'arrivée contient de la transparence)
+        """How to view the level based 
+        of the structure list referred by generer ()
+        Chargement images (only the arrival one contains transparency """
+
         mur = pygame.image.load(image_Mur).convert()
         Mac_gyverr = pygame.image.load(image_Mac__gyver).convert_alpha()
         Guard = pygame.image.load(image_Guard).convert_alpha()
         Seringue = pygame.image.load(image_seringue).convert_alpha()
         Ether = pygame.image.load(image_ether).convert_alpha()
         Aiguille = pygame.image.load(image_aiguille).convert_alpha()
+        
         for key, value in self.labyrinthe.items():
             x = key[0] * taille_sprite
             y = key[1] * taille_sprite
-            pos_x = self.mac_gyver.coordinates[1] * taille_sprite
-            pos_y = self.mac_gyver.coordinates[0] * taille_sprite
-            if value == 'd':
-                fenetre.blit(Mac_gyverr, (pos_x,pos_y))
+
+            if value == 'd': #M = MacGyver
+                fenetre.blit(Mac_gyverr, (x,y))
             if value == 'm': #m = Mur
                 fenetre.blit(mur, (x,y))
             if value == 'g': #g = Guardien
                 fenetre.blit(Guard, (x,y))
-            if value == 's':
+            if value == 's': #s = seringue
                 fenetre.blit(Seringue, (x,y))
-            if value == 'e':
+            if value == 'e': #e = ether
                 fenetre.blit(Ether, (x,y))
-            if value == 't':
+            if value == 't': #t = tube
                 fenetre.blit(Aiguille, (x,y))
 
 
 
-    # Cette fonction récupère les différents déplacements de Macgyver.
+    # This function recovers Macgyver's various movements.
     def move(self, direction = False):
         if direction == "bottom":
             if self.check_move(direction):
@@ -215,6 +218,7 @@ class maze:
                 self.mac_gyver.coordinates[0] -= 1
                 self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
 
+
         if direction == "left":
             if self.check_move(direction):
                 self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
@@ -226,7 +230,6 @@ class maze:
                 self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "c"
                 self.mac_gyver.coordinates[1] += 1
                 self.labyrinthe[tuple(self.mac_gyver.coordinates)] = "d"
-        
 
 if __name__ == '__main__':
 

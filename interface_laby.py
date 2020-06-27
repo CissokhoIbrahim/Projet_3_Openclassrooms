@@ -10,15 +10,12 @@ pygame.init()
 
 #Ouverture de la fenêtre Pygame
 fenetre = pygame.display.set_mode((cote_fenetre, cote_fenetre))
-
 pygame.display.set_caption("Maze")
 
 fond = pygame.image.load("ressource/fond.jpg")
+
 fenetre.blit(fond, (0,0))
-
 m.afficher(fenetre)
-
-#Rafraîchissement de l'écran
 pygame.display.flip()
 
 #BOUCLE INFINIEn b
@@ -26,23 +23,18 @@ continuer = 1
 while continuer:
 	pygame.time.Clock().tick(30)
 	# Parcours des différents évenements
-	for event in pygame.event.get(): # Attente des événements
-		#Touches de déplacement de Donkey Kong
-		if event.type == K_RIGHT:
-			m.move("right")
-		if event.type == K_LEFT:
-			m.move("left")
-		if event.type == K_UP:
-			m.move("top")
-		if event.type == K_DOWN:
-			m.move("bottom")
-
-		if event.type == QUIT:
-			continuer = 0
-	
-#Re-collage
-fenetre.blit(fond, (0,0))
-m.afficher(fenetre)
-fenetre.blit(m.move(), (self.macgyver.coordinates[0], self.macgyver.coordinates[1]))
-#Rafraichissement
-pygame.display.flip()
+	for event in pygame.event.get(): 
+		if(event.type == pygame.KEYDOWN):
+			if event.key == K_DOWN:
+				m.move("right")
+			if event.key == K_UP:
+				m.move("left")
+			if event.key == K_LEFT:
+				m.move("top")
+			if event.key == K_RIGHT:
+				m.move("bottom")
+			if event.key == QUIT:
+				continuer = 0
+			fenetre.blit(fond, (0,0))
+			m.afficher(fenetre)
+			pygame.display.flip()
