@@ -8,21 +8,24 @@ m = maze()
 
 pygame.init()
 
-#Ouverture de la fenêtre Pygame
+# #Ouverture of the Pygame window
 fenetre = pygame.display.set_mode((cote_fenetre, cote_fenetre))
-pygame.display.set_caption("Maze")
 
+# tittle of window
+pygame.display.set_caption("Maze")
+# The bakground at the maze
 fond = pygame.image.load("ressource/fond.jpg")
 
+# Loading the window
 fenetre.blit(fond, (0,0))
-m.afficher(fenetre)
+m.picture_maze(fenetre)
 pygame.display.flip()
 
-#BOUCLE INFINIEn b
-continuer = 1
-while continuer:
+# while = 1
+Part_of_the_game = 1
+while Part_of_the_game:
 	pygame.time.Clock().tick(30)
-	# Parcours des différents évenements
+	# Course of the various events
 	for event in pygame.event.get(): 
 		if(event.type == pygame.KEYDOWN):
 			if event.key == K_DOWN:
@@ -34,7 +37,10 @@ while continuer:
 			if event.key == K_RIGHT:
 				m.move("bottom")
 			if event.key == QUIT:
-				continuer = 0
+				Part_of_the_game = 0
+			if event.key == K_ESCAPE:
+				Part_of_the_game = 0
+			# Refreshing the screen
 			fenetre.blit(fond, (0,0))
-			m.afficher(fenetre)
+			m.picture_maze(fenetre)
 			pygame.display.flip()

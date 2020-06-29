@@ -172,7 +172,7 @@ class maze:
                 line = ""
         return line
 
-    def afficher(self, fenetre):
+    def picture_maze(self, fenetre):
         """How to view the level based 
         of the structure list referred by generer ()
         Chargement images (only the arrival one contains transparency """
