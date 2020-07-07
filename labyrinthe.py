@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import * 
 from macgyver import MacGyver
-from constantes_2 import * 
+from constante import * 
 # Maze Manager
 class maze:
 

@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 from labyrinthe import maze
-from constantes_2 import *
+from constante import *
 from macgyver import MacGyver
 
 m = maze()
