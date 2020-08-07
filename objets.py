@@ -5,9 +5,7 @@ class Objects:
 		self.custom_count = custom_count
 		self.items = {
 			't' : True,
-
 			'e' : True,
-
 			's' : True
 			}
 
