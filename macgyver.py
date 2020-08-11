@@ -1,10 +1,9 @@
+"""Class of Macgyver"""
 class MacGyver:
-
-	def __init__(self, coo):
-		self.coordinates = coo
+    """Coordinates x and y"""
+    def __init__(self, coo):
+        self.coordinates = coo
 
 if __name__== "__main__":
 
-	pass
-
-	
+    pass

@@ -1,11 +1,9 @@
+"""File of gard"""
 class Gard():
-	
-	def __init__(self, gard):
-		self.Gard = gard
-
+    """Class of gard"""
+    def __init__(self, gard):
+        self.gard = gard
 
 if __name__== "__main__":
 
-	pass
-
-
+    pass

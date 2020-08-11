@@ -3,10 +3,10 @@
 
 """the modules for importation"""
 
+import random
 import pygame
 from macgyver import MacGyver
-import constante
-
+from constante import IMAGE_MUR, IMAGE_MACGYVER, IMAGE_GUARD, IMAGE_SERINGUE, IMAGE_ETHER, IMAGE_AIGUILLE, TAILLE_SPRITE
 
 class Maze:
     """Builder: triggers
@@ -29,6 +29,7 @@ class Maze:
 
         self.bag = 0
 
+
     def parse_file(self):
         """Method that manages the parsing of
         the .txt file representing the maze"""
@@ -37,25 +38,23 @@ class Maze:
         coo_x, coo_y = 0, 0
 
         spider = open("labyrinthe.txt", "r")
-        """We open the file in playback and assign its contents to spider"""
-
+        # We open the file in playback and assign its contents to spider
         for line in spider:
-            """We walk the lines of spider"""
-
+            # We walk the lines of spider
             for caracter in line:
-                """We're going through the characters of line"""
+                # We're going through the characters of line
 
                 if caracter == 'd':
-                    """If the character is a d then create the pair of keys MacGyver"""
+                    # if the character is a d then create the pair of keys MacGyver
                     self.mac_gyver = MacGyver([coo_x, coo_y])
-                    """If the character is a back to the line"""
+                    # if the character is a back to the line
                 if caracter == "\n":
-                    """ we iron y to 0, and x to x+1 """
+                    # we iron y to 0, and x to x+1
                     coo_y = 0
                     coo_x = coo_x+1
-                    """Otherwise the character is not a back to the line"""
+                    # Otherwise the character is not a back to the line
                 else:
-                    """We create the pair key: value in the dictionary content"""
+                    # We create the pair key: value in the dictionary content
                     content[(coo_x, coo_y)] = caracter
                     coo_y = coo_y+1
         return content
@@ -74,12 +73,11 @@ class Maze:
     def random_coordinates(self):
         """ This function randomly
         selects 3 coordinated """
-        import random
         i = 0
         liste = self.get_keys()
         liste_coordinates = []
-        for i in range(0,3):
-            """ We run three he's function """
+        for i in range(0, 3):
+            # We run three he's function
             random.shuffle(liste)
             liste_coordinates.append(liste[0])
             liste.pop(0)
@@ -96,19 +94,22 @@ class Maze:
         return liste
 
     def bottom(self):
-        m.move("bottom")
+        """The direction of bottom"""
+        return m.move("bottom")
 
     def top(self):
-        m.move("top")
+        """The direction of top"""
+        return m.move("top")
 
     def left(self):
-        m.move("left")
+        """The direction of left"""
+        return m.move("left")
 
     def right(self):
-        m.move("right")
+        """The direction of right"""
+        return m.move("right")
 
-
-    def check_move(self, direction):
+    def check_move(self, direction=None):
         """ The fontion check_move that verifies
         whether the move is allowed and whether
         they can pick up an object or not """
@@ -139,26 +140,19 @@ class Maze:
 
         if destination == 't':
             self.bag += 1
-            print("Vous avez : {} objet .".format(self.bag))
             return True
 
         if destination == 's':
             self.bag += 1
-            print("Vous avez : {} objet .".format(self.bag))
             return True
 
         if destination == 'e':
             self.bag += 1
-            print("Vous avez : {} objet .".format(self.bag))
             return True
 
         if destination == "g":
-            if self.bag == 3:
-                print(" Vous avez gagnez !!!! .")
-                return True
-            else:
-                print(" Vous avez perdu !!!! .")
-                return True
+            self.bag == 1
+            return True
 
     def parse_laby(self):
         """ This function draws function
@@ -191,29 +185,29 @@ class Maze:
         """How to view the level based
         of the structure list referred by generer
         Chargement images only the arrival one contains transparency"""
-        MUR = pygame.image.load(IMAGE_MUR).convert_alpha()
-        MACGYVER = pygame.image.load(IMAGE_MACGYVER).convert_alpha()
-        GUARD = pygame.image.load(IMAGE_GUARD).convert_alpha()
-        SERINGUE = pygame.image.load(IMAGE_SERINGUE).convert_alpha()
-        ETHER = pygame.image.load(IMAGE_ETHER).convert_alpha()
-        AIGUILLE = pygame.image.load(IMAGE_AIGUILLE).convert_alpha()
+        variable_walls = pygame.image.load(IMAGE_MUR).convert_alpha()
+        variable_macgyver = pygame.image.load(IMAGE_MACGYVER).convert_alpha()
+        variable_gard = pygame.image.load(IMAGE_GUARD).convert_alpha()
+        variable_seringue = pygame.image.load(IMAGE_SERINGUE).convert_alpha()
+        variable_ether = pygame.image.load(IMAGE_ETHER).convert_alpha()
+        variable_aiguille = pygame.image.load(IMAGE_AIGUILLE).convert_alpha()
 
         for key, value in self.labyrinthe.items():
             case_x = key[0] * TAILLE_SPRITE
             case_y = key[1] * TAILLE_SPRITE
 
             if value == 'd':
-                fenetre.blit(MACGYVER, (case_x,case_y))
+                fenetre.blit(variable_macgyver, (case_x,case_y))
             if value == 'm':
-                fenetre.blit(MUR, (case_x,case_y))
+                fenetre.blit(variable_walls, (case_x,case_y))
             if value == 'g':
-                fenetre.blit(GUARD, (case_x,case_y))
+                fenetre.blit(variable_gard, (case_x,case_y))
             if value == 's':
-                fenetre.blit(SERINGUE, (case_x,case_y))
+                fenetre.blit(variable_seringue, (case_x,case_y))
             if value == 'e':
-                fenetre.blit(ETHER, (case_x,case_y))
+                fenetre.blit(variable_ether, (case_x,case_y))
             if value == 't':
-                fenetre.blit(AIGUILLE, (case_x,case_y))
+                fenetre.blit(variable_aiguille, (case_x,case_y))
 
 
     def move(self, direction):
@@ -245,4 +239,4 @@ class Maze:
 
 if __name__ == '__main__':
 
-    pass
+    m = Maze()
